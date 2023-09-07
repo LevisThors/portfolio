@@ -24,6 +24,7 @@ import iswavleImage from "../../assets/iswavle.png";
 import whaleImage from "../../assets/whale.png";
 import tgmImage from "../../assets/tgm.png";
 import quizzyImage from "../../assets/quizzy.png";
+import { useIsMobile } from "../../util/useIsMobile";
 
 import "./ProjectsComponent.scss";
 
@@ -44,6 +45,7 @@ export default function ProjectsComponent({
     const [isDragging, setIsDragging] = useState(false);
     const [dragStartX, setDragStartX] = useState(0);
     const [modal, setModal] = useState("");
+    const { isMobile } = useIsMobile();
 
     const nextImage = () => {
         setActiveImage((prevActive) => (prevActive + 1) % images.length);
@@ -68,6 +70,29 @@ export default function ProjectsComponent({
         } else {
             return "wheel-image-hidden";
         }
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setIsDragging(true);
+        setDragStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (isDragging) {
+            const offsetX = e.touches[0].clientX - dragStartX;
+            const threshold = 50;
+            if (offsetX > threshold) {
+                nextImage();
+                setIsDragging(false);
+            } else if (offsetX < -threshold) {
+                prevImage();
+                setIsDragging(false);
+            }
+        }
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
     };
 
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -101,12 +126,14 @@ export default function ProjectsComponent({
     const closeModal = () => {
         setShowModal(false);
     };
-    console.log(modal);
+
     return (
         <>
             {showModal && (
                 <ProjectModal currentProject={modal} closeModal={closeModal} />
             )}
+            {isMobile && <h1 className="projects-tab">PROJECTS</h1>}
+
             <div className="wheel-container">
                 <div className="wheel-left-arrow" onClick={nextImage}></div>
                 <div className="wheel-images">
@@ -118,6 +145,9 @@ export default function ProjectsComponent({
                             <div
                                 className="wheel-image-overlay"
                                 onClick={() => handleClick(projectNames[index])}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handleTouchEnd}
                                 onMouseDown={handleMouseDown}
                                 onMouseMove={handleMouseMove}
                                 onMouseUp={handleMouseUp}
@@ -132,9 +162,14 @@ export default function ProjectsComponent({
                             <img
                                 src={image}
                                 alt="Main"
-                                width={700}
-                                height={500}
+                                width={isMobile ? 260 : 700}
+                                height={isMobile ? 170 : 500}
                             />
+                            {isMobile && (
+                                <h2 className="wheel-project-name">
+                                    {projectNames[index]}
+                                </h2>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -148,7 +183,6 @@ const ProjectModal: React.FC<{
     currentProject: string;
     closeModal: () => void;
 }> = ({ currentProject, closeModal }) => {
-    console.log(currentProject);
     return (
         <>
             <div className="project-overlay" onClick={closeModal}></div>

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useIsMobile } from "../../util/useIsMobile";
+
 import "./SkillsComponent.scss";
 
 interface SkillsComponentProps {
@@ -11,10 +13,6 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({
     highlightedBlocks,
 }) => {
     const [blocks, setBlocks] = useState<JSX.Element[]>([]);
-
-    const fontSize = label === "PostgreSQL" ? "1.2rem" : "1.3rem";
-
-    console.log(fontSize);
 
     useEffect(() => {
         const generateBlocks = () => {
@@ -44,7 +42,7 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({
             <div className="card">
                 {blocks}
                 <div className="rating">
-                    <h2 style={{ fontSize }}>{label}</h2>
+                    <h2>{label}</h2>
                 </div>
             </div>
         </div>
@@ -52,29 +50,95 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({
 };
 
 export default function SkillsComponentContainer() {
+    const { isMobile } = useIsMobile();
+
     return (
         <div className="skills">
-            <div className="skills-row">
-                <SkillsComponent label="HTML" highlightedBlocks={83} />
-                <SkillsComponent label="CSS" highlightedBlocks={79} />
-                <SkillsComponent label="Javascript" highlightedBlocks={86} />
-                <SkillsComponent label="PHP" highlightedBlocks={83} />
-                <SkillsComponent label="Python" highlightedBlocks={77} />
-                <SkillsComponent label="C#" highlightedBlocks={47} />
-            </div>
-            <div className="skills-row">
-                <SkillsComponent label="Laravel" highlightedBlocks={88} />
-                <SkillsComponent label="React" highlightedBlocks={82} />
-                <SkillsComponent label="GraphQL" highlightedBlocks={84} />
-                <SkillsComponent label="MYSQL" highlightedBlocks={87} />
-                <SkillsComponent label="PostgreSQL" highlightedBlocks={88} />
-            </div>
-            <div className="skills-row">
-                <SkillsComponent label="Magento" highlightedBlocks={66} />
-                <SkillsComponent label="Flask" highlightedBlocks={50} />
-                <SkillsComponent label="Photoshop" highlightedBlocks={80} />
-                <SkillsComponent label="Figma" highlightedBlocks={60} />
-            </div>
+            {!isMobile ? (
+                <>
+                    <div className="skills-row">
+                        <SkillsComponent label="HTML" highlightedBlocks={83} />
+                        <SkillsComponent label="CSS" highlightedBlocks={79} />
+                        <SkillsComponent
+                            label="Javascript"
+                            highlightedBlocks={86}
+                        />
+                        <SkillsComponent label="PHP" highlightedBlocks={83} />
+                        <SkillsComponent
+                            label="Python"
+                            highlightedBlocks={77}
+                        />
+                        <SkillsComponent label="C#" highlightedBlocks={47} />
+                    </div>
+                    <div className="skills-row">
+                        <SkillsComponent
+                            label="Laravel"
+                            highlightedBlocks={88}
+                        />
+                        <SkillsComponent label="React" highlightedBlocks={82} />
+                        <SkillsComponent
+                            label="GraphQL"
+                            highlightedBlocks={84}
+                        />
+                        <SkillsComponent label="MYSQL" highlightedBlocks={87} />
+                        <SkillsComponent
+                            label="PostgreSQL"
+                            highlightedBlocks={88}
+                        />
+                    </div>
+                    <div className="skills-row">
+                        <SkillsComponent
+                            label="Magento"
+                            highlightedBlocks={66}
+                        />
+                        <SkillsComponent label="Flask" highlightedBlocks={50} />
+                        <SkillsComponent
+                            label="Photoshop"
+                            highlightedBlocks={80}
+                        />
+                        <SkillsComponent label="Figma" highlightedBlocks={60} />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <h1 className="skills-mobile-header">Skills</h1>
+                    <div className="skills-row">
+                        <SkillsComponent label="HTML" highlightedBlocks={83} />
+                        <SkillsComponent label="CSS" highlightedBlocks={79} />
+                        <SkillsComponent
+                            label="Javascript"
+                            highlightedBlocks={86}
+                        />
+                    </div>
+                    <div className="skills-row">
+                        <SkillsComponent label="PHP" highlightedBlocks={83} />
+                        <SkillsComponent
+                            label="Python"
+                            highlightedBlocks={77}
+                        />
+                        <SkillsComponent label="C#" highlightedBlocks={47} />
+                    </div>
+                    <div className="skills-row">
+                        <SkillsComponent
+                            label="Laravel"
+                            highlightedBlocks={88}
+                        />
+                        <SkillsComponent label="React" highlightedBlocks={82} />
+                        <SkillsComponent
+                            label="GraphQL"
+                            highlightedBlocks={84}
+                        />
+                    </div>
+                    <div className="skills-row">
+                        <SkillsComponent label="MYSQL" highlightedBlocks={87} />
+                        <SkillsComponent
+                            label="Magento"
+                            highlightedBlocks={66}
+                        />
+                        <SkillsComponent label="Flask" highlightedBlocks={50} />
+                    </div>
+                </>
+            )}
         </div>
     );
 }

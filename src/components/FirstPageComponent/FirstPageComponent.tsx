@@ -1,4 +1,6 @@
 import { useState, useEffect, lazy } from "react";
+import { useIsMobile } from "../../util/useIsMobile";
+
 import "./FirstPageComponent.scss";
 
 const SkillsComponentContainer = lazy(
@@ -19,6 +21,7 @@ type Anchor = "about" | "skills" | "projects" | "contact";
 export default function FirstPageComponent() {
     const [activeAnchor, setActiveAnchor] = useState<Anchor>("about");
     const [showModal, setShowModal] = useState<boolean>(false);
+    const { isMobile } = useIsMobile();
 
     const handleAnchorClick = (anchor: Anchor) => {
         setActiveAnchor(anchor);
@@ -45,10 +48,44 @@ export default function FirstPageComponent() {
             }
         };
 
+        const handleTouchStart = (event: TouchEvent) => {
+            const startY = event.touches[0].clientY;
+
+            const handleTouchMove = (event: TouchEvent) => {
+                const deltaY = event.touches[0].clientY - startY;
+
+                if (!showModal) {
+                    if (deltaY > 50) {
+                        currentAnchorIndex = Math.max(
+                            currentAnchorIndex - 1,
+                            0
+                        );
+                    } else if (deltaY < -50) {
+                        currentAnchorIndex = Math.min(
+                            currentAnchorIndex + 1,
+                            anchors.length - 1
+                        );
+                    }
+
+                    setActiveAnchor(anchors[currentAnchorIndex]);
+                }
+            };
+
+            const handleTouchEnd = () => {
+                document.removeEventListener("touchmove", handleTouchMove);
+                document.removeEventListener("touchend", handleTouchEnd);
+            };
+
+            document.addEventListener("touchmove", handleTouchMove);
+            document.addEventListener("touchend", handleTouchEnd);
+        };
+
         document.addEventListener("wheel", handleWheel);
+        document.addEventListener("touchstart", handleTouchStart);
 
         return () => {
             document.removeEventListener("wheel", handleWheel);
+            document.removeEventListener("touchstart", handleTouchStart);
         };
     }, [showModal]);
 
@@ -65,52 +102,56 @@ export default function FirstPageComponent() {
                 )}
                 {activeAnchor === "contact" && <ContactComponent />}
             </div>
-            <div className="navbar-container">
-                <ul className="navbar">
-                    <li>
-                        <a
-                            href="#about"
-                            className={activeAnchor === "about" ? "active" : ""}
-                            onClick={() => handleAnchorClick("about")}
-                        >
-                            About Me
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#skills"
-                            className={
-                                activeAnchor === "skills" ? "active" : ""
-                            }
-                            onClick={() => handleAnchorClick("skills")}
-                        >
-                            Skills
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#projects"
-                            className={
-                                activeAnchor === "projects" ? "active" : ""
-                            }
-                            onClick={() => handleAnchorClick("projects")}
-                        >
-                            Projects
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#contact"
-                            className={
-                                activeAnchor === "contact" ? "active" : ""
-                            }
-                            onClick={() => handleAnchorClick("contact")}
-                        >
-                            Contact
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            {!isMobile && (
+                <div className="navbar-container">
+                    <ul className="navbar">
+                        <li>
+                            <a
+                                href="#about"
+                                className={
+                                    activeAnchor === "about" ? "active" : ""
+                                }
+                                onClick={() => handleAnchorClick("about")}
+                            >
+                                About Me
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#skills"
+                                className={
+                                    activeAnchor === "skills" ? "active" : ""
+                                }
+                                onClick={() => handleAnchorClick("skills")}
+                            >
+                                Skills
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#projects"
+                                className={
+                                    activeAnchor === "projects" ? "active" : ""
+                                }
+                                onClick={() => handleAnchorClick("projects")}
+                            >
+                                Projects
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#contact"
+                                className={
+                                    activeAnchor === "contact" ? "active" : ""
+                                }
+                                onClick={() => handleAnchorClick("contact")}
+                            >
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            )}
         </>
     );
 }
