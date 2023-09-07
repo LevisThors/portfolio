@@ -1,9 +1,18 @@
-import { useState, useEffect } from "react";
-import SkillsComponentContainer from "../SkillsComponent/SkillsComponentContainer";
-import ProjectsComponent from "../ProjectsComponent/ProjectsComponent";
-import AboutMeComponent from "../AboutMeComponent/AboutMeComponent";
-
+import { useState, useEffect, lazy } from "react";
 import "./FirstPageComponent.scss";
+
+const SkillsComponentContainer = lazy(
+    () => import("../SkillsComponent/SkillsComponentContainer")
+);
+const ProjectsComponent = lazy(
+    () => import("../ProjectsComponent/ProjectsComponent")
+);
+const AboutMeComponent = lazy(
+    () => import("../AboutMeComponent/AboutMeComponent")
+);
+const ContactComponent = lazy(
+    () => import("../ContactComponent/ContactComponent")
+);
 
 type Anchor = "about" | "skills" | "projects" | "contact";
 
@@ -54,7 +63,7 @@ export default function FirstPageComponent() {
                         setShowModal={setShowModal}
                     />
                 )}
-                {activeAnchor === "contact" && <AboutMeComponent />}
+                {activeAnchor === "contact" && <ContactComponent />}
             </div>
             <div className="navbar-container">
                 <ul className="navbar">

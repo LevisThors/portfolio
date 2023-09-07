@@ -1,0 +1,18 @@
+.contact {
+    margin-left: 7%;
+
+    h1 {
+        font-size: 5rem;
+        color: white;
+    }
+
+    span {
+        font-size: 2rem;
+        color: white;
+    }
+
+    &-body {
+        display: flex;
+        flex-direction: column;
+    }
+}
