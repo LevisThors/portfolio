@@ -1,0 +1,49 @@
+.about-me {
+    margin-left: 100px;
+    opacity: 0;
+    animation: shazam 1s forwards;
+    max-width: 40%;
+
+    @keyframes shazam {
+        100% {
+            opacity: 1;
+        }
+    }
+
+    h1 {
+        color: #fff;
+        font-family: Passion One;
+        font-size: 96px;
+        font-style: normal;
+        line-height: normal;
+        margin-block: 0;
+        font-weight: 700;
+    }
+
+    span {
+        display: flex;
+        width: 100%;
+        justify-self: flex-end;
+        font-size: 3rem;
+        color: #127a8aa9;
+    }
+
+    p {
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.699);
+        opacity: 0;
+        animation: shazam 2s forwards;
+
+        @keyframes shazam {
+            100% {
+                opacity: 1;
+            }
+        }
+    }
+
+    &-agwera {
+        transition: scale 0.4s ease;
+        z-index: 1000;
+    }
+}
