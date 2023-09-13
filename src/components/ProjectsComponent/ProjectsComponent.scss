@@ -27,7 +27,7 @@
         background-color: transparent;
         transition: background-color 0.3s ease;
         user-select: none;
-        cursor: grab;
+        cursor: pointer;
 
         @media only screen and (max-width: 768px) {
             height: 200px;
@@ -67,16 +67,26 @@
 
         @media only screen and (max-width: 768px) {
             padding-block: 100px;
-            padding-inline: 30px;
+            padding-inline: 20px;
         }
     }
 
     &-left-arrow {
-        left: -60px;
+        left: -50px;
+
+        @media only screen and (max-width: 768px) {
+            left: auto;
+            right: 100%;
+        }
     }
 
     &-right-arrow {
         right: -50px;
+
+        @media only screen and (max-width: 768px) {
+            right: auto;
+            left: 100%;
+        }
     }
 
     &-images {

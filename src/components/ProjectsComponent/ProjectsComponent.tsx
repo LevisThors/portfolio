@@ -25,6 +25,9 @@ import whaleImage from "../../assets/whale.png";
 import tgmImage from "../../assets/tgm.png";
 import quizzyImage from "../../assets/quizzy.png";
 import { useIsMobile } from "../../util/useIsMobile";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 
 import "./ProjectsComponent.scss";
 
@@ -127,6 +130,8 @@ export default function ProjectsComponent({
         setShowModal(false);
     };
 
+    const faFontSize = !isMobile ? "99px" : "40px";
+
     return (
         <>
             {showModal && (
@@ -135,16 +140,37 @@ export default function ProjectsComponent({
             {isMobile && <h1 className="projects-tab">PROJECTS</h1>}
 
             <div className="wheel-container">
-                <div className="wheel-left-arrow" onClick={nextImage}></div>
+                <div className="wheel-left-arrow" onClick={nextImage}>
+                    <FontAwesomeIcon
+                        icon={faChevronLeft}
+                        style={{ color: "#ffffff", fontSize: faFontSize }}
+                    />
+                </div>
                 <div className="wheel-images">
                     {images.map((image, index) => (
                         <div
                             className={`wheel-image ${imagePosition(index)}`}
                             key={index}
                         >
-                            <div
-                                className="wheel-image-overlay"
-                                onClick={() => handleClick(projectNames[index])}
+                            {index === activeImage && !isMobile && (
+                                <>
+                                    <div
+                                        className="wheel-image-overlay"
+                                        onClick={() =>
+                                            handleClick(projectNames[index])
+                                        }
+                                    >
+                                        <span className="wheel-image-overlay-text">
+                                            {projectNames[index]}
+                                        </span>
+                                    </div>
+                                </>
+                            )}
+                            <img
+                                src={image}
+                                alt="Main"
+                                width={isMobile ? 260 : 700}
+                                height={isMobile ? 170 : 500}
                                 onTouchStart={handleTouchStart}
                                 onTouchMove={handleTouchMove}
                                 onTouchEnd={handleTouchEnd}
@@ -154,17 +180,8 @@ export default function ProjectsComponent({
                                 style={{
                                     cursor: isDragging ? "grabbing" : "grab",
                                 }}
-                            >
-                                <span className="wheel-image-overlay-text">
-                                    {projectNames[index]}
-                                </span>
-                            </div>
-                            <img
-                                src={image}
-                                alt="Main"
-                                width={isMobile ? 260 : 700}
-                                height={isMobile ? 170 : 500}
                             />
+
                             {isMobile && (
                                 <h2 className="wheel-project-name">
                                     {projectNames[index]}
@@ -173,7 +190,12 @@ export default function ProjectsComponent({
                         </div>
                     ))}
                 </div>
-                <div className="wheel-right-arrow" onClick={prevImage}></div>
+                <div className="wheel-right-arrow" onClick={prevImage}>
+                    <FontAwesomeIcon
+                        icon={faChevronRight}
+                        style={{ color: "#ffffff", fontSize: faFontSize }}
+                    />
+                </div>
             </div>
         </>
     );
