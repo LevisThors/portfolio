@@ -24,6 +24,8 @@ import iswavleImage from "../../assets/iswavle.png";
 import whaleImage from "../../assets/whale.png";
 import tgmImage from "../../assets/tgm.png";
 import quizzyImage from "../../assets/quizzy.png";
+import museumMain from "../../assets/museum-main.png";
+import museum from "../../assets/museum.png";
 import { useIsMobile } from "../../util/useIsMobile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -40,9 +42,21 @@ export default function ProjectsComponent({
     showModal,
     setShowModal,
 }: ProjectsProps) {
-    const images = [iswavleImage, quizzyImage, whaleImage, tgmImage];
+    const images = [
+        iswavleImage,
+        quizzyImage,
+        whaleImage,
+        tgmImage,
+        museumMain,
+    ];
 
-    const projectNames = ["Iswavle", "Quizzy", "Whale", "The Gaming Maniacs"];
+    const projectNames = [
+        "Iswavle",
+        "Quizzy",
+        "Whale",
+        "The Gaming Maniacs",
+        "Museum",
+    ];
 
     const [activeImage, setActiveImage] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -218,6 +232,7 @@ const ProjectModal: React.FC<{
                     <TheGamingManiacsComponent />
                 )}
                 {currentProject === "Whale" && <WhaleComponent />}
+                {currentProject === "Museum" && <MuseumComponent />}
             </div>
         </>
     );
@@ -430,6 +445,50 @@ const TheGamingManiacsComponent = () => {
                 means to build a website for blogs. Although this project was
                 created just for learning purposes, I think it came out pretty
                 well.
+            </p>
+        </>
+    );
+};
+
+const MuseumComponent = () => {
+    return (
+        <>
+            <a
+                href="https://levisthors.github.io/museum/"
+                style={{ fontSize: "2rem" }}
+            >
+                VISIT SITE
+            </a>
+            <p>
+                After seeing web-site of the Georgian National Museum, I decided
+                to update it in my own ways.
+            </p>
+            <img src={museumMain} />
+            <p>
+                For reference I used popular museum web-sites such as - Louvre,
+                British Museum etc.
+            </p>
+            <p>
+                Web-site was built solely on client side, as it is only a
+                prototype. For it I used Vite with react and sass was used for
+                styling.
+            </p>
+            <img src={museum} />
+            <p>
+                Also, to manage languages easier and make it compatible for any
+                back-end services I included React Router.
+            </p>
+            <p>
+                It should be mentioned, that this web-site can connect to any
+                API and display sections based on that.
+            </p>
+            <p>
+                <i>
+                    This website is used for demonstartion purposes only, I DO
+                    NOT OWN any of the assets, images, videos, fonts used in the
+                    application. Only source code and design of it belongs to
+                    me.
+                </i>
             </p>
         </>
     );
