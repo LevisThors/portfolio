@@ -8,7 +8,7 @@ export default function AboutMeComponent() {
             <div className="about-me-agwera">
                 <p>
                     Hello, I'm Shukri, a passionate developer with a love for
-                    creating elegant solutions to complex problems. With a
+                    creating elegant and optimized solutions to complex problems. With a
                     background in IT, I've honed my skills in crafting web
                     applications that not only meet functional requirements but
                     also provide delightful user experiences.
