@@ -1,50 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useIsMobile } from "../../util/useIsMobile";
+import { styled } from "@mui/material/styles";
+import Rating from "@mui/material/Rating";
+import BakeryDiningIcon from "@mui/icons-material/BakeryDining";
 
 import "./SkillsComponent.scss";
 
+const StyledRating = styled(Rating)({
+    "& .MuiRating-iconFilled": {
+        color: "#22c1da",
+    },
+    "& .MuiRating-iconHover": {
+        color: "#ff3d47",
+    },
+});
+
 interface SkillsComponentProps {
     label: string;
-    highlightedBlocks: number;
+    progress: number;
 }
-
 const SkillsComponent: React.FC<SkillsComponentProps> = ({
     label,
-    highlightedBlocks,
+    progress,
 }) => {
-    const [blocks, setBlocks] = useState<JSX.Element[]>([]);
-
-    useEffect(() => {
-        const generateBlocks = () => {
-            const blocksArray: JSX.Element[] = [];
-            for (let i = 0; i < 100; i++) {
-                const rotation = (3.6 * i) % 360;
-                const isHighlighted = i < highlightedBlocks;
-                const blockStyle = {
-                    transform: `rotate(${rotation}deg)`,
-                    animationDelay: `${i / 100}s`,
-                    backgroundColor: isHighlighted ? "#127a8a" : "transparent",
-                    display: isHighlighted ? "block" : "none",
-                };
-
-                blocksArray.push(
-                    <div className="block" key={i} style={blockStyle}></div>
-                );
-            }
-            setBlocks(blocksArray);
-        };
-
-        generateBlocks();
-    }, [highlightedBlocks]);
-
     return (
-        <div>
-            <div className="card">
-                {blocks}
-                <div className="rating">
-                    <h2>{label}</h2>
-                </div>
-            </div>
+        <div className="gauge-container">
+            <span>{label}</span>
+            <StyledRating
+                name="customized-color"
+                defaultValue={Math.floor(progress / 20)}
+                getLabelText={(value: number) =>
+                    `${value} Heart${value !== 1 ? "s" : ""}`
+                }
+                precision={0.5}
+                icon={<BakeryDiningIcon fontSize="inherit" />}
+                emptyIcon={<BakeryDiningIcon fontSize="inherit" />}
+                disabled={true}
+            />
         </div>
     );
 };
@@ -53,92 +45,59 @@ export default function SkillsComponentContainer() {
     const { isMobile } = useIsMobile();
 
     return (
-        <div className="skills">
-            {!isMobile ? (
-                <>
-                    <div className="skills-row">
-                        <SkillsComponent label="HTML" highlightedBlocks={83} />
-                        <SkillsComponent label="CSS" highlightedBlocks={79} />
-                        <SkillsComponent
-                            label="Javascript"
-                            highlightedBlocks={86}
-                        />
-                        <SkillsComponent label="PHP" highlightedBlocks={83} />
-                        <SkillsComponent
-                            label="Python"
-                            highlightedBlocks={77}
-                        />
-                        <SkillsComponent label="C#" highlightedBlocks={47} />
-                    </div>
-                    <div className="skills-row">
-                        <SkillsComponent
-                            label="Laravel"
-                            highlightedBlocks={88}
-                        />
-                        <SkillsComponent label="React" highlightedBlocks={82} />
-                        <SkillsComponent
-                            label="GraphQL"
-                            highlightedBlocks={84}
-                        />
-                        <SkillsComponent label="MYSQL" highlightedBlocks={87} />
-                        <SkillsComponent
-                            label="PostgreSQL"
-                            highlightedBlocks={88}
-                        />
-                    </div>
-                    <div className="skills-row">
-                        <SkillsComponent
-                            label="Magento"
-                            highlightedBlocks={66}
-                        />
-                        <SkillsComponent label="Flask" highlightedBlocks={50} />
-                        <SkillsComponent
-                            label="Photoshop"
-                            highlightedBlocks={80}
-                        />
-                        <SkillsComponent label="Figma" highlightedBlocks={60} />
-                    </div>
-                </>
-            ) : (
-                <>
-                    <h1 className="skills-mobile-header">Skills</h1>
-                    <div className="skills-row">
-                        <SkillsComponent label="HTML" highlightedBlocks={83} />
-                        <SkillsComponent label="CSS" highlightedBlocks={79} />
-                        <SkillsComponent
-                            label="Javascript"
-                            highlightedBlocks={86}
-                        />
-                    </div>
-                    <div className="skills-row">
-                        <SkillsComponent label="PHP" highlightedBlocks={83} />
-                        <SkillsComponent
-                            label="Python"
-                            highlightedBlocks={77}
-                        />
-                        <SkillsComponent label="C#" highlightedBlocks={47} />
-                    </div>
-                    <div className="skills-row">
-                        <SkillsComponent
-                            label="Laravel"
-                            highlightedBlocks={88}
-                        />
-                        <SkillsComponent label="React" highlightedBlocks={82} />
-                        <SkillsComponent
-                            label="GraphQL"
-                            highlightedBlocks={84}
-                        />
-                    </div>
-                    <div className="skills-row">
-                        <SkillsComponent label="MYSQL" highlightedBlocks={87} />
-                        <SkillsComponent
-                            label="Magento"
-                            highlightedBlocks={66}
-                        />
-                        <SkillsComponent label="Flask" highlightedBlocks={50} />
-                    </div>
-                </>
-            )}
-        </div>
+        <>
+            <div className="background-croissants"></div>
+            <div className="skills">
+                {!isMobile ? (
+                    <>
+                        <div className="skills-row">
+                            <SkillsComponent label="HTML" progress={83} />
+                            <SkillsComponent label="CSS" progress={79} />
+                            <SkillsComponent label="Javascript" progress={86} />
+                            <SkillsComponent label="PHP" progress={83} />
+                            <SkillsComponent label="Python" progress={77} />
+                        </div>
+                        <div className="skills-row">
+                            <SkillsComponent label="Laravel" progress={88} />
+                            <SkillsComponent label="React" progress={82} />
+                            <SkillsComponent label="GraphQL" progress={84} />
+                            <SkillsComponent label="MYSQL" progress={87} />
+                            <SkillsComponent label="PostgreSQL" progress={88} />
+                        </div>
+                        <div className="skills-row">
+                            <SkillsComponent label="Magento" progress={66} />
+                            <SkillsComponent label="Flask" progress={50} />
+                            <SkillsComponent label="Photoshop" progress={80} />
+                            <SkillsComponent label="Figma" progress={60} />
+                            <SkillsComponent label="C#" progress={80} />
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <h1 className="skills-mobile-header">Skills</h1>
+                        <div className="skills-row">
+                            <SkillsComponent label="HTML" progress={83} />
+                            <SkillsComponent label="CSS" progress={79} />
+                            <SkillsComponent label="Javascript" progress={86} />
+                        </div>
+                        <div className="skills-row">
+                            <SkillsComponent label="PHP" progress={83} />
+                            <SkillsComponent label="Python" progress={77} />
+                            <SkillsComponent label="C#" progress={80} />
+                        </div>
+                        <div className="skills-row">
+                            <SkillsComponent label="Laravel" progress={88} />
+                            <SkillsComponent label="React" progress={82} />
+                            <SkillsComponent label="GraphQL" progress={84} />
+                        </div>
+                        <div className="skills-row">
+                            <SkillsComponent label="MYSQL" progress={87} />
+                            <SkillsComponent label="Magento" progress={66} />
+                            <SkillsComponent label="Flask" progress={50} />
+                        </div>
+                    </>
+                )}
+            </div>
+        </>
     );
 }

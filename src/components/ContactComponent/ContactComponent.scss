@@ -6,13 +6,28 @@
         color: white;
     }
 
+    h2 {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        width: 170px;
+        border-bottom: 1px solid white;
+    }
+
     span {
         font-size: 2rem;
         color: white;
+
+        img {
+            max-height: 75px;
+            max-width: 75px;
+            height: 50px;
+            width: 50px;
+        }
     }
 
     &-body {
         display: flex;
-        flex-direction: column;
+        gap: 20px;
     }
 }
