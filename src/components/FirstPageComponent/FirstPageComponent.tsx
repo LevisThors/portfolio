@@ -107,7 +107,6 @@ export default function FirstPageComponent() {
                     <ul className="navbar">
                         <li>
                             <a
-                                href="#about"
                                 className={
                                     activeAnchor === "about" ? "active" : ""
                                 }
@@ -118,7 +117,6 @@ export default function FirstPageComponent() {
                         </li>
                         <li>
                             <a
-                                href="#skills"
                                 className={
                                     activeAnchor === "skills" ? "active" : ""
                                 }
@@ -129,7 +127,6 @@ export default function FirstPageComponent() {
                         </li>
                         <li>
                             <a
-                                href="#projects"
                                 className={
                                     activeAnchor === "projects" ? "active" : ""
                                 }
@@ -140,7 +137,6 @@ export default function FirstPageComponent() {
                         </li>
                         <li>
                             <a
-                                href="#contact"
                                 className={
                                     activeAnchor === "contact" ? "active" : ""
                                 }
