@@ -106,44 +106,44 @@ export default function FirstPageComponent() {
                 <div className="navbar-container">
                     <ul className="navbar">
                         <li>
-                            <span
+                            <a
                                 className={
                                     activeAnchor === "about" ? "active" : ""
                                 }
                                 onClick={() => handleAnchorClick("about")}
                             >
                                 About Me
-                            </span>
+                            </a>
                         </li>
                         <li>
-                            <span
+                            <a
                                 className={
                                     activeAnchor === "skills" ? "active" : ""
                                 }
                                 onClick={() => handleAnchorClick("skills")}
                             >
                                 Skills
-                            </span>
+                            </a>
                         </li>
                         <li>
-                            <span
+                            <a
                                 className={
                                     activeAnchor === "projects" ? "active" : ""
                                 }
                                 onClick={() => handleAnchorClick("projects")}
                             >
                                 Projects
-                            </span>
+                            </a>
                         </li>
                         <li>
-                            <span
+                            <a
                                 className={
                                     activeAnchor === "contact" ? "active" : ""
                                 }
                                 onClick={() => handleAnchorClick("contact")}
                             >
                                 Contact
-                            </span>
+                            </a>
                         </li>
                     </ul>
                 </div>
