@@ -1,20 +1,10 @@
-import { useState, useEffect, lazy } from "react";
+import { useState, useEffect } from "react";
 import { useIsMobile } from "../../util/useIsMobile";
-
+import SkillsComponentContainer from "../SkillsComponent/SkillsComponentContainer";
+import ProjectsComponent from "../ProjectsComponent/ProjectsComponent";
+import AboutMeComponent from "../AboutMeComponent/AboutMeComponent";
+import ContactComponent from "../ContactComponent/ContactComponent";
 import "./FirstPageComponent.scss";
-
-const SkillsComponentContainer = lazy(
-    () => import("../SkillsComponent/SkillsComponentContainer")
-);
-const ProjectsComponent = lazy(
-    () => import("../ProjectsComponent/ProjectsComponent")
-);
-const AboutMeComponent = lazy(
-    () => import("../AboutMeComponent/AboutMeComponent")
-);
-const ContactComponent = lazy(
-    () => import("../ContactComponent/ContactComponent")
-);
 
 type Anchor = "about" | "skills" | "projects" | "contact";
 
