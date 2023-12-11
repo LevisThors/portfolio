@@ -34,6 +34,8 @@
     flex-direction: column;
     gap: 70px;
     margin-left: 150px;
+    position: relative;
+    z-index: 100;
 
     @media only screen and (max-width: 768px) {
         margin-left: 0;
